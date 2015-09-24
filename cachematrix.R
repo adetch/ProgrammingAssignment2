@@ -31,7 +31,7 @@ cacheSolve <- function(x, ...) {
   inverse <- x$getInverse()
   
   if(!is.null(inverse)) {
-    message("getting inverted matrix")
+    message("retrieving cached matrix")
     return(inverse)
   }
   
@@ -58,19 +58,23 @@ checkWork <- function() {
   print(checkMatrix$getInverse())
   
   # Test that cacheSolve returns the 'cached' bougs inverse matrix
-  message("and calling cacheSolve() gives us the bogus matrix as well")
+  message("...and that calling cacheSolve() happily returns the 'cached' bogus inverse as well")
   print(cacheSolve(checkMatrix))
   
   # Let's recreate a fresh matrix
-  message("now let's create a new matrix")
+  message("now let's create a shiny new matrix")
   checkMatrix <- makeCacheMatrix(matrix(rnorm(25),5,5))
   print(checkMatrix$get())
   
   # Let's compute the inverse
-  message("and let's compute the inverse")
+  message("for which we'll compute the inverse")
   print(inverse <- cacheSolve(checkMatrix))
   
-  # And check that it multiplying it by the original matrix gives us the identity matrix
+  # Run again and see if we see "getting cached matrix" message
+  message("let's see if we get the 'retrieving cached matrix' message when we rerun cacheSolve")
+  print(inverse <- cacheSolve(checkMatrix))
+  
+  # Now we'll check that it multiplying it by the original matrix gives us the identity matrix
   message("this should give us an identity matrix...")
   round(inverse %*% checkMatrix$get())
 }
