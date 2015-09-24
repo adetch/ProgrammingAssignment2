@@ -50,6 +50,7 @@ checkWork <- function() {
   # Creates a bogus 'inverse'
   bogusInverse <- matrix(rep(1,25),5,5)
   message("let's create a bogus inverse matrix and assign it using setInverse")
+  print(bogusInverse)
   checkMatrix$setInverse(bogusInverse)
   
   # Test that getInverse returns our bogus inverse matrix
@@ -58,15 +59,15 @@ checkWork <- function() {
   
   # Test that cacheSolve returns the 'cached' bougs inverse matrix
   message("and calling cacheSolve() gives us the bogus matrix as well")
-  cacheSolve(checkMatrix)
+  print(cacheSolve(checkMatrix))
   
   # Let's recreate a fresh matrix
   message("now let's create a new matrix")
   checkMatrix <- makeCacheMatrix(matrix(rnorm(25),5,5))
-  checkMatrix$get()
+  print(checkMatrix$get())
   
   # Let's compute the inverse
-  message("computing the inverse")
+  message("and let's compute the inverse")
   print(inverse <- cacheSolve(checkMatrix))
   
   # And check that it multiplying it by the original matrix gives us the identity matrix
