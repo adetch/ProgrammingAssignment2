@@ -1,7 +1,6 @@
-## Put comments here that give an overall description of what your
-## functions do
+## 
 
-## Write a short comment describing this function
+## Create matrix interface, instantiating getters & setters
 
 makeCacheMatrix <- function(x = matrix()) {
   inverse <- NULL
@@ -12,7 +11,7 @@ makeCacheMatrix <- function(x = matrix()) {
   }
   get <- function() x
   
-  setInverse <- function(solve) inverse <<- solve
+  setInverse <- function(value) inverse <<- value
   getInverse <- function() inverse
   
   return(
@@ -25,7 +24,7 @@ makeCacheMatrix <- function(x = matrix()) {
     )
 }
 
-## Write a short comment describing this function
+## Returns cached inverse matrix, or calculate it if no cache present
 
 cacheSolve <- function(x, ...) {
   inverse <- x$getInverse()
@@ -40,6 +39,8 @@ cacheSolve <- function(x, ...) {
   x$setInverse(inverse)
   return(inverse)
 }
+
+## Walk through proof of work
 
 checkWork <- function() {
   # Creates matrix to work with
@@ -57,7 +58,7 @@ checkWork <- function() {
   message("let's use getInverse() and verify it returns the bogus inverse")
   print(checkMatrix$getInverse())
   
-  # Test that cacheSolve returns the 'cached' bougs inverse matrix
+  # Test that cacheSolve returns the 'cached' bogus inverse matrix
   message("...and that calling cacheSolve() happily returns the 'cached' bogus inverse as well")
   print(cacheSolve(checkMatrix))
   
@@ -70,11 +71,11 @@ checkWork <- function() {
   message("for which we'll compute the inverse")
   print(inverse <- cacheSolve(checkMatrix))
   
-  # Run again and see if we see "getting cached matrix" message
+  # Run again and see if we see "retrieving cached matrix" message
   message("let's see if we get the 'retrieving cached matrix' message when we rerun cacheSolve")
   print(inverse <- cacheSolve(checkMatrix))
   
   # Now we'll check that it multiplying it by the original matrix gives us the identity matrix
-  message("this should give us an identity matrix...")
+  message("now we'll check that we actually have the inverse. \nmultiplying the two should give us an identity matrix...")
   round(inverse %*% checkMatrix$get())
 }
