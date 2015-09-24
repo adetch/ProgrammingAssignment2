@@ -1,4 +1,4 @@
-## 
+## matrix inversion caching exercise
 
 ## Create matrix interface, instantiating getters & setters
 
