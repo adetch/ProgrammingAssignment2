@@ -3,15 +3,20 @@
 ## Create matrix interface, instantiating getters & setters
 
 makeCacheMatrix <- function(x = matrix()) {
+  # Clear out the inverse
   inverse <- NULL
   
+  # Facility to allow changing the vector after the fact
   set <- function(y) {
     x <<- y
     inverse <<- NULL
   }
+  # Return the matrix itself.
   get <- function() x
   
+  # Accept a value (any value) and assign it to variable inverse
   setInverse <- function(value) inverse <<- value
+  # Return the inverse variable
   getInverse <- function() inverse
   
   return(
@@ -29,11 +34,13 @@ makeCacheMatrix <- function(x = matrix()) {
 cacheSolve <- function(x, ...) {
   inverse <- x$getInverse()
   
+  # check for cached inverse
   if(!is.null(inverse)) {
     message("retrieving cached matrix")
     return(inverse)
   }
   
+  # get the matrix, find and set the inverse and return the result.
   matrix <- x$get()
   inverse <- solve(matrix)
   x$setInverse(inverse)
